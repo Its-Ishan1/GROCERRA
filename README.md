@@ -7,7 +7,7 @@ Grocerra is a state-of-the-art, full-stack e-commerce application designed for a
 ### For Customers
 - **Intuitive Shopping**: Clean, responsive UI with advanced searching and category filtering.
 - **Advanced Cart System**: Dynamic stock checking, quantity management, and tax calculations.
-- **Secure Checkout**: Support for Cash On Delivery (COD) and prepared for Stripe/Razorpay integration.
+- **Secure Checkout**: Support for Cash On Delivery (COD).
 - **Order Management**: Real-time order tracking with a seamless cancellation flow.
 - **Address Management**: Multiple address support for easier checkouts.
 
