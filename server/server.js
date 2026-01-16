@@ -18,9 +18,16 @@ import newsletterRouter from './routes/newsletterRoute.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
-await connectDB()
+const initApp = async () => {
+    try {
+        await connectDB();
+        await connectCloudinary();
+    } catch (error) {
+        console.error("Initialization error:", error);
+    }
+};
 
-await connectCloudinary()
+initApp();
 
 //allow multiple origins
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
