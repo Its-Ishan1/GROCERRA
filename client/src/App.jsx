@@ -22,6 +22,7 @@ import Orders from './pages/seller/Orders';
 import Loading from './components/Loading';
 import Contact from './pages/Contact';
 import Messages from './pages/seller/Messages';
+import Subscribers from './pages/seller/Subscribers';
 
 
 
@@ -75,6 +76,7 @@ const App = () => {
             <Route path='product-list' element={<ProductList />} />
             <Route path='orders' element={<Orders />} />
             <Route path='messages' element={<Messages />} />
+            <Route path='subscribers' element={<Subscribers />} />
           </Route>
         </Routes>
 

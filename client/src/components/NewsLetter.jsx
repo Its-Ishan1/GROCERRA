@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useAppContext } from '../context/AppContext';
 
 const NewsLetter = () => {
+    const { axios } = useAppContext();
+    const [email, setEmail] = useState("");
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
-        toast.success("Subscribed successfully!");
+        try {
+            const { data } = await axios.post('/api/newsletter/subscribe', { email });
+            if (data.success) {
+                toast.success(data.message);
+                setEmail("");
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
     }
 
     return (
@@ -16,6 +29,8 @@ const NewsLetter = () => {
             </p>
             <form onSubmit={onSubmitHandler} className="flex items-center justify-between max-w-2xl w-full md:h-13 h-12">
                 <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     className="border border-gray-300 rounded-md h-full border-r-0 outline-none w-full rounded-r-none px-3 text-gray-500"
                     type="email"
                     placeholder="Enter your email id"
