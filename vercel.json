@@ -23,6 +23,10 @@
             "destination": "server/server.js"
         },
         {
+            "source": "/((?!api|images|.*\\.).*)",
+            "destination": "client/index.html"
+        },
+        {
             "source": "/(.*)",
             "destination": "client/$1"
         }
