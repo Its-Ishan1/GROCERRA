@@ -29,6 +29,23 @@ const ProductList = () => {
         }
     }
 
+    const deleteProduct = async (id) => {
+        const toastId = toast.loading("Removing product...")
+        try {
+            const { data } = await axios.post('/api/product/remove', { id })
+
+            if (data.success) {
+                fetchProducts();
+                toast.success(data.message, { id: toastId })
+            }
+            else {
+                toast.error(data.message, { id: toastId })
+            }
+        } catch (error) {
+            toast.error(error.message, { id: toastId })
+        }
+    }
+
     return (
         <div className=" no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
             <div className="w-full md:p-10 p-4">
@@ -56,15 +73,25 @@ const ProductList = () => {
                                     <td className="px-4 py-3 max-sm:hidden">{Currency}{product.price}
                                     </td>
                                     <td className="px-4 py-3">
-                                        <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
-                                            <input
-                                                onClick={() => toggleStock(product._id, !product.inStock)}
-                                                checked={product.inStock}
-                                                type="checkbox"
-                                                className="sr-only peer" />
-                                            <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200"></div>
-                                            <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
-                                        </label>
+                                        <div className="flex items-center gap-4">
+                                            <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
+                                                <input
+                                                    onClick={() => toggleStock(product._id, !product.inStock)}
+                                                    checked={product.inStock}
+                                                    type="checkbox"
+                                                    className="sr-only peer" />
+                                                <div className="w-12 h-7 bg-slate-300 rounded-full peer peer-checked:bg-blue-600 transition-colors duration-200"></div>
+                                                <span className="dot absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
+                                            </label>
+                                            <button
+                                                onClick={() => deleteProduct(product._id)}
+                                                className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

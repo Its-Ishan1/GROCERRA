@@ -20,6 +20,8 @@ import AddProduct from './pages/seller/AddProduct';
 import ProductList from './pages/seller/ProductList';
 import Orders from './pages/seller/Orders';
 import Loading from './components/Loading';
+import Contact from './pages/Contact';
+import Messages from './pages/seller/Messages';
 
 
 
@@ -60,8 +62,9 @@ const App = () => {
           <Route path='/cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path='/add-address' element={<ProtectedRoute><AddAddress /></ProtectedRoute>} />
           <Route path='/my-orders' element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
-           <Route path='/loader' element={<Loading/>} />
+          <Route path='/loader' element={<Loading />} />
           <Route path='/payment-success' element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
+          <Route path='/contact' element={<Contact />} />
 
           {/*  SELLER ROUTES */}
           <Route
@@ -71,6 +74,7 @@ const App = () => {
             <Route index element={<AddProduct />} />
             <Route path='product-list' element={<ProductList />} />
             <Route path='orders' element={<Orders />} />
+            <Route path='messages' element={<Messages />} />
           </Route>
         </Routes>
 

@@ -13,6 +13,7 @@ const SellerLayout = () => {
         { name: "Add Product", path: "/seller", icon: assets.add_icon },
         { name: "Product List", path: "/seller/product-list", icon: assets.product_list_icon },
         { name: "Orders", path: "/seller/orders", icon: assets.order_icon },
+        { name: "Messages", path: "/seller/messages", icon: assets.contact_icon },
     ];
     const logout = async () => {
         try {
@@ -34,8 +35,14 @@ const SellerLayout = () => {
     return (
         <div className="ml-0 p-0">
             <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white  ">
-                <Link to="/">
-                    <img src={assets.logo} alt='logo' className='cursor-pointer w-34 md:w-38' />
+                <Link to="/" className="flex items-center gap-2.5">
+                    <img src={assets.logo} alt='logo' className='cursor-pointer h-12 md:h-14 object-contain shadow-sm' />
+                    <div className="flex flex-col leading-none">
+                        <span className="text-2xl md:text-3xl font-black tracking-tighter text-gray-900 flex items-center">
+                            G<span className="text-primary">rocerra</span>
+                        </span>
+                        <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase ml-0.5">Fresh Market</span>
+                    </div>
                 </Link>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! Admin</p>

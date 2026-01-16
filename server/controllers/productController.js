@@ -89,3 +89,21 @@ export const changeStock = async (req, res) => {
     }
 
 }
+
+
+//Remove product :/api/product/remove
+export const removeProduct = async (req, res) => {
+    try {
+        const { id } = req.body
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.json({ success: false, message: 'Invalid Product ID' })
+        }
+
+        await Product.findByIdAndDelete(id)
+        res.json({ success: true, message: 'Product Removed' })
+
+    } catch (error) {
+        console.log(error.message)
+        res.json({ success: false, message: error.message })
+    }
+}

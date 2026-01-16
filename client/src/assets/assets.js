@@ -13,6 +13,7 @@ import order_icon from "./order_icon.svg";
 import upload_area from "./upload_area.png";
 import profile_icon from "./profile_icon.png";
 import menu_icon from "./menu_icon.svg";
+import contact_icon from "./contact_icon.svg";
 import delivery_truck_icon from "./delivery_truck_icon.svg";
 import leaf_icon from "./leaf_icon.svg";
 import coin_icon from "./coin_icon.svg";
@@ -98,6 +99,7 @@ export const assets = {
   bottom_banner_image_sm,
   add_address_iamge,
   box_icon,
+  contact_icon,
 };
 
 export const categories = [
@@ -149,11 +151,11 @@ export const footerLinks = [
   {
     title: "Quick Links",
     links: [
-      { text: "Home", url: "#" },
-      { text: "Best Sellers", url: "#" },
-      { text: "Offers & Deals", url: "#" },
-      { text: "Contact Us", url: "#" },
-      { text: "FAQs", url: "#" },
+      { text: "Home", url: "/" },
+      { text: "Best Sellers", url: "/products" },
+      { text: "Offers & Deals", url: "/products" },
+      { text: "Contact Us", url: "/contact" },
+      { text: "Become a Seller", url: "/seller" },
     ],
   },
   {
@@ -162,8 +164,8 @@ export const footerLinks = [
       { text: "Delivery Information", url: "#" },
       { text: "Return & Refund Policy", url: "#" },
       { text: "Payment Methods", url: "#" },
-      { text: "Track your Order", url: "#" },
-      { text: "Contact Us", url: "#" },
+      { text: "Track your Order", url: "/my-orders" },
+      { text: "Contact Us", url: "/contact" },
     ],
   },
   {

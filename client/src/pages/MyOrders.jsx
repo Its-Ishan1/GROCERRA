@@ -1,7 +1,7 @@
 import React, { use } from 'react'
 import { useState, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { set } from 'lodash';
+import { toast } from 'react-hot-toast';
 import { dummyOrders } from '../assets/assets';
 
 
@@ -12,15 +12,27 @@ const MyOrders = () => {
     const { Currency, user, axios } = useAppContext();
     const fetchMyOrders = async () => {
         try {
-
             const { data } = await axios.get('/api/order/user')
             if (data.success) {
                 setMyOrders(data.orders)
             }
-
         } catch (error) {
             console.log(error);
+        }
+    }
 
+    const cancelOrder = async (orderId) => {
+        const toastId = toast.loading("Cancelling order...");
+        try {
+            const { data } = await axios.post('/api/order/cancel', { orderId })
+            if (data.success) {
+                toast.success(data.message, { id: toastId })
+                fetchMyOrders()
+            } else {
+                toast.error(data.message, { id: toastId })
+            }
+        } catch (error) {
+            toast.error(error.message, { id: toastId })
         }
     }
 
@@ -43,11 +55,21 @@ const MyOrders = () => {
             </div>
             {myOrders.map((order, index) => (
                 <div key={index} className="border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl">
-                    <p className='flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col'>
-                        <span> OrderId: {order._id}</span>
-                        <span> Payment :{order.paymentType}</span>
-                        <span>Total Amount :{Currency}{order.amount}</span>
-                    </p>
+                    <div className='flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col gap-2'>
+                        <div className='flex flex-col md:flex-row md:gap-6'>
+                            <span> OrderId: {order._id}</span>
+                            <span> Payment: {order.paymentType}</span>
+                            <span>Total Amount: {Currency}{order.amount}</span>
+                        </div>
+                        {(order.status === 'Order Placed' || order.status === 'Payment Pending') && (
+                            <button
+                                onClick={() => cancelOrder(order._id)}
+                                className='text-sm px-4 py-1.5 border border-red-200 text-red-500 hover:bg-red-50 rounded transition-colors cursor-pointer w-fit'
+                            >
+                                Cancel Order
+                            </button>
+                        )}
+                    </div>
                     {order.items.map((item, index) => {
                         if (!item.product) return null;
                         return (

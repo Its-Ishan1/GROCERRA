@@ -47,8 +47,14 @@ const Navbar = () => {
 
 
       {/* LOGO */}
-      <NavLink to="/" onClick={() => setOpen(false)}>
-        <img className="h-9" src={assets.logo} alt="logo" />
+      <NavLink to="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5">
+        <img className="h-14 shadow-sm" src={assets.logo} alt="logo" />
+        <div className="flex flex-col leading-none">
+          <span className="text-3xl font-black tracking-tighter text-gray-900 flex items-center">
+            G<span className="text-primary">rocerra</span>
+          </span>
+          <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase ml-0.5">Fresh Market</span>
+        </div>
       </NavLink>
 
       {/* DESKTOP MENU */}
@@ -58,12 +64,21 @@ const Navbar = () => {
         <NavLink to="/contact">Contact</NavLink>
 
         {/* SEARCH */}
-        <div className="hidden lg:flex items-center gap-2 border border-gray-300 px-3 rounded-full">
-          <input onChange={(e) => setSearchQuery(e.target.value)}
-            className="py-1.5 bg-transparent outline-none text-sm"
+        <div className="hidden lg:flex items-center gap-2 border border-gray-300 px-3 rounded-full group focus-within:border-primary transition">
+          <input
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
+            className="py-1.5 bg-transparent outline-none text-sm w-48"
             type="text"
             placeholder="Search products"
           />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} className="text-gray-400 hover:text-gray-600 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
           <img src={assets.search_icon} alt="search" className="h-4 w-4" />
         </div>
 

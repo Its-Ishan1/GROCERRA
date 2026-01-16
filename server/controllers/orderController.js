@@ -291,3 +291,43 @@ export const verifyRazorpayPayment = async (req, res) => {
         res.json({ success: false, message: error.message });
     }
 }
+// Cancel Order: /api/order/cancel
+export const cancelOrder = async (req, res) => {
+    try {
+        const { orderId } = req.body;
+        const userId = req.userId;
+
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            return res.json({ success: false, message: 'Order not found' });
+        }
+
+        if (order.userId.toString() !== userId.toString()) {
+            return res.json({ success: false, message: 'Unauthorized' });
+        }
+
+        // Only allow cancellation if order is not already shipped/delivered/cancelled
+        if (order.status !== 'Order Placed' && order.status !== 'Payment Pending') {
+            return res.json({ success: false, message: 'Order cannot be cancelled at this stage' });
+        }
+
+        await Order.findByIdAndUpdate(orderId, { status: 'Cancelled' });
+        res.json({ success: true, message: 'Order cancelled successfully' });
+
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+}
+// Update Order Status: /api/order/status
+export const updateOrderStatus = async (req, res) => {
+    try {
+        const { orderId, status } = req.body;
+
+        await Order.findByIdAndUpdate(orderId, { status });
+        res.json({ success: true, message: 'Status Updated' });
+
+    } catch (error) {
+        res.json({ success: false, message: error.message });
+    }
+}

@@ -9,7 +9,7 @@ async function cleanup() {
 
         // Remove products added by the failed seed script (those with specific mock URLs)
         const result = await mongoose.connection.db.collection('products').deleteMany({
-            "image.0": { $regex: "res.cloudinary.com/duim5xlit/image/upload/v1736485890/greencart/" }
+            "image.0": { $regex: "res.cloudinary.com/duim5xlit/image/upload/v1736485890/grocerra/" }
         });
 
         console.log(`Deleted ${result.deletedCount} broken products`);
