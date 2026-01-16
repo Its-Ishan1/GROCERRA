@@ -36,13 +36,23 @@ app.use(cors({
 }));
 app.use('/images', express.static('public/images'));
 
-// Debugging: Check if environment variables are loaded
-if (!process.env.MONGODB_URI) {
-    console.error("CRITICAL: MONGODB_URI is missing from environment variables!");
-}
+// Health check route (no DB required)
+app.get("/api/health", (req, res) => {
+    res.json({
+        success: true,
+        message: "Server is up and running!",
+        env: {
+            hasMongo: !!process.env.MONGODB_URI,
+            nodeEnv: process.env.NODE_ENV
+        }
+    });
+});
 
 // Middleware to ensure DB and Cloudinary are connected
 const ensureConnections = async (req, res, next) => {
+    // Skip for health check and root
+    if (req.path === '/api/health' || req.path === '/api' || req.path === '/') return next();
+
     try {
         if (mongoose.connection.readyState !== 1) {
             console.log("Connecting to Database...");
@@ -55,17 +65,12 @@ const ensureConnections = async (req, res, next) => {
         console.error("Connection Middleware Error:", error.message);
         res.status(500).json({
             success: false,
-            message: `Server Connection Error: ${error.message}. Please check MONGODB_URI in Vercel settings.`
+            message: `Server Connection Error: ${error.message}`
         });
     }
 };
 
 app.use(ensureConnections);
-
-app.get("/", (req, res) => {
-    res.send("Api is working");
-
-});
 
 app.use('/api/user', userRouter)
 app.use('/api/seller', sellerRouter)
@@ -75,6 +80,10 @@ app.use('/api/address', addressRouter)
 app.use('/api/order', orderRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/newsletter', newsletterRouter)
+
+app.get("/", (req, res) => {
+    res.send("Grocerra API is working");
+});
 
 if (process.env.NODE_ENV !== 'production') {
     app.listen(port, () => {
