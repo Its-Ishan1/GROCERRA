@@ -36,16 +36,27 @@ app.use(cors({
 }));
 app.use('/images', express.static('public/images'));
 
+// Debugging: Check if environment variables are loaded
+if (!process.env.MONGODB_URI) {
+    console.error("CRITICAL: MONGODB_URI is missing from environment variables!");
+}
+
 // Middleware to ensure DB and Cloudinary are connected
 const ensureConnections = async (req, res, next) => {
     try {
         if (mongoose.connection.readyState !== 1) {
+            console.log("Connecting to Database...");
             await connectDB();
             await connectCloudinary();
+            console.log("Connections established.");
         }
         next();
     } catch (error) {
-        res.status(500).json({ success: false, message: "Database connection failed" });
+        console.error("Connection Middleware Error:", error.message);
+        res.status(500).json({
+            success: false,
+            message: `Server Connection Error: ${error.message}. Please check MONGODB_URI in Vercel settings.`
+        });
     }
 };
 
