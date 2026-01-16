@@ -12,22 +12,11 @@ import addressRouter from './routes/addressRoute.js';
 import orderRouter from './routes/orderRoute.js';
 import contactRouter from './routes/contactRoute.js';
 import newsletterRouter from './routes/newsletterRoute.js';
-
+import mongoose from 'mongoose';
 
 
 const app = express();
 const port = process.env.PORT || 4000;
-
-const initApp = async () => {
-    try {
-        await connectDB();
-        await connectCloudinary();
-    } catch (error) {
-        console.error("Initialization error:", error);
-    }
-};
-
-initApp();
 
 //allow multiple origins
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
@@ -47,6 +36,20 @@ app.use(cors({
 }));
 app.use('/images', express.static('public/images'));
 
+// Middleware to ensure DB and Cloudinary are connected
+const ensureConnections = async (req, res, next) => {
+    try {
+        if (mongoose.connection.readyState !== 1) {
+            await connectDB();
+            await connectCloudinary();
+        }
+        next();
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Database connection failed" });
+    }
+};
+
+app.use(ensureConnections);
 
 app.get("/", (req, res) => {
     res.send("Api is working");
