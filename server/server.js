@@ -46,6 +46,10 @@ app.use('/api/order', orderRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/newsletter', newsletterRouter)
 
-app.listen(port, () => {
-    console.log(`server is running on http://localhost:${port}.`)
-})
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(port, () => {
+        console.log(`server is running on http://localhost:${port}.`)
+    })
+}
+
+export default app;
