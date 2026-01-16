@@ -2,7 +2,7 @@
 
 ## ✅ **Stripe Payment Gateway - ACTIVE & READY!**
 
-Your GreenCart application now has **Stripe** payment integration for secure online payments!
+Your Grocerra application now has **Stripe** payment integration for secure online payments!
 
 ---
 
@@ -86,7 +86,7 @@ Enters card details
         ↓
 Payment processed by Stripe
         ↓
-Redirected back to GreenCart
+Redirected back to Grocerra
         ↓
 Payment verified
         ↓

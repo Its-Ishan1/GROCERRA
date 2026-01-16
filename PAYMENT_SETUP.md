@@ -2,7 +2,7 @@
 
 ## 🎉 Congratulations! Both Payment Gateways Are Integrated!
 
-Your GreenCart now supports **TWO** payment gateways:
+Your Grocerra now supports **TWO** payment gateways:
 1. **Razorpay** - Perfect for Indian customers (UPI, Cards, NetBanking)
 2. **Stripe** - Great for international customers
 
