@@ -1,5 +1,11 @@
 {
     "name": "greencart-root",
     "version": "1.0.0",
-    "private": true
+    "private": true,
+    "scripts": {
+        "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+        "client": "npm run dev --prefix client",
+        "server": "npm run server --prefix server",
+        "dev": "npx concurrently \"npm run server\" \"npm run client\""
+    }
 }
