@@ -47,13 +47,13 @@ const Navbar = () => {
 
 
       {/* LOGO */}
-      <NavLink to="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5">
-        <img className="h-14 shadow-sm" src={assets.logo} alt="logo" />
+      <NavLink to="/" onClick={() => setOpen(false)} className="flex items-center gap-1.5 md:gap-2.5">
+        <img className="h-10 md:h-14 shadow-sm" src={assets.logo} alt="logo" />
         <div className="flex flex-col leading-none">
-          <span className="text-3xl font-black tracking-tighter text-gray-900 flex items-center">
+          <span className="text-xl md:text-3xl font-black tracking-tighter text-gray-900 flex items-center">
             G<span className="text-primary">rocerra</span>
           </span>
-          <span className="text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase ml-0.5">Fresh Market</span>
+          <span className="text-[8px] md:text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase ml-0.5">Fresh Market</span>
         </div>
       </NavLink>
 
@@ -146,7 +146,7 @@ const Navbar = () => {
       </div>
 
       {/* MOBILE MENU ICON */}
-      <div className="flex md:hidden items-center gap-6">
+      <div className="flex md:hidden items-center gap-4">
         <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
           <img src={assets.nav_cart_icon} alt="cart" className="w-6" />
           <button className="absolute -top-2 -right-3 text-xs bg-primary text-white w-5 h-5 flex items-center justify-center rounded-full">
