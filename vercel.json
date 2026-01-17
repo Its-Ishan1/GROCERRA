@@ -19,11 +19,7 @@
             "destination": "server/server.js"
         },
         {
-            "source": "/images/(.*)",
-            "destination": "server/server.js"
-        },
-        {
-            "source": "/((?!api|images|.*\\.).*)",
+            "source": "/((?!api|.*\\.).*)",
             "destination": "client/index.html"
         },
         {

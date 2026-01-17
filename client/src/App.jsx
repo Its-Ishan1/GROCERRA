@@ -13,7 +13,6 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import AddAddress from './pages/AddAddress';
 import MyOrders from './pages/MyOrders';
-import PaymentSuccess from './pages/PaymentSuccess';
 import SellerLogin from './components/seller/SellerLogin';
 import SellerLayout from './pages/seller/SellerLayout';
 import AddProduct from './pages/seller/AddProduct';
@@ -64,7 +63,6 @@ const App = () => {
           <Route path='/add-address' element={<ProtectedRoute><AddAddress /></ProtectedRoute>} />
           <Route path='/my-orders' element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
           <Route path='/loader' element={<Loading />} />
-          <Route path='/payment-success' element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
           <Route path='/contact' element={<Contact />} />
 
           {/*  SELLER ROUTES */}
