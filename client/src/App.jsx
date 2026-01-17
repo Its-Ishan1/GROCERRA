@@ -81,7 +81,7 @@ const App = () => {
 
       </div>
       {!isSellerPath && <Footer />}
-      <Analytics />
+      <Analytics mode={'production'} />
     </div>
 
   )
